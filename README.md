@@ -2,76 +2,72 @@
 
 ## 1. Project Overview
 
-The **Financial MIS Reporting System** is a financial reporting project developed using **Excel VBA, SQL, and Power Query**. It helps organize financial transactions, analyze monthly financial performance, compare actual amounts with budgets, and automate recurring MIS reporting activities.
+The **Financial MIS Reporting System** is a portfolio project that demonstrates how finance teams can organize transaction data, compare actuals with budgets, prepare monthly financial summaries, and automate recurring management information system (MIS) reporting using **Excel VBA, SQL, and Power Query**.
 
-The project includes sample financial datasets, SQL database scripts, Power Query transformation scripts, Excel VBA automation code, and an Excel workbook.
+It includes synthetic transaction data, account and cost-center master data, budget data, SQL schema and analytics queries, Power Query M scripts, Excel VBA automation code, and an Excel sample workbook.
 
-It also includes an optional Python utility to validate the sample data, create a local SQLite database, and generate financial summary reports.
+The project is designed for learning and demonstration. It is not an audited accounting system and should not be used for statutory reporting without appropriate review and controls.
 
 ## 2. Project Objectives
 
-- Automate repetitive financial MIS reporting activities.
-- Organize transaction data into structured tables.
-- Analyze monthly revenue, cost of sales, and operating expenses.
-- Compare actual financial activity against budget amounts.
-- Track posted, pending, and reversed transactions.
-- Clean and transform financial data using Power Query.
-- Refresh reports and export summaries using Excel VBA.
-- Use SQL queries to generate financial insights.
-- Improve reporting consistency and reduce manual work.
+- Organize financial transactions in a structured format.
+- Build a relational data model for accounts, cost centers, transactions, and budgets.
+- Prepare monthly revenue, cost, and expense summaries.
+- Compare actual activity with budget amounts.
+- Identify pending and reversed transactions for control review.
+- Use Power Query to import, clean, and transform CSV data.
+- Use Excel VBA to refresh reports and export the MIS summary to PDF.
+- Use SQL to answer finance and management reporting questions.
+- Create a repeatable workflow that can be refreshed when source data changes.
 
 ## 3. Technologies Used
 
 | Technology | Purpose |
 |---|---|
-| Microsoft Excel | Financial reporting and MIS summaries |
-| Excel VBA | Report refresh automation and PDF export |
-| Power Query | Data import, cleaning, and transformation |
-| SQL | Financial analysis and database queries |
-| SQLite | Local relational database |
-| Python | Data validation and report generation |
-| Pandas | Data manipulation and analysis |
-| Matplotlib | Financial trend visualization |
-| CSV | Source data storage |
-| GitHub | Version control and project sharing |
+| Microsoft Excel | MIS workbook and summary sheets |
+| Excel VBA | Refresh automation and PDF export |
+| Power Query (M) | Importing, typing, trimming, and filtering source data |
+| SQL | Database schema and financial analysis queries |
+| SQLite | Local relational database for the reproducible Python runner |
+| Python and Pandas | Optional validation and sample report generation |
+| CSV | Portable source datasets |
+| GitHub | Version control and portfolio sharing |
 
 ## 4. Project Features
 
 - Financial transaction register.
-- Account master and cost-center master data.
-- Monthly budget dataset.
-- Monthly revenue and expense analysis.
-- Actual-versus-budget comparison.
-- Transaction status monitoring.
-- Department-level expense analysis.
-- Power Query data-cleaning scripts.
-- VBA automation for refreshing data.
-- Automated PDF export of the MIS Summary worksheet.
-- SQL queries for financial reporting.
-- Python-based data validation and report generation.
+- Chart of accounts and cost-center master tables.
+- Monthly budget records.
+- Posted, pending, and reversed transaction tracking.
+- Monthly financial summary for revenue, cost of sales, operating expenses, and operating result.
+- Actual-versus-budget query.
+- Department expense analysis.
+- Power Query templates for repeatable data preparation.
+- VBA macros for refresh, summary-sheet creation, and PDF export.
+- Python runner to validate sample data and generate reports.
 - Excel workbook containing the sample datasets.
 
 ## 5. Sample Dataset
 
-This project uses **synthetic sample data** for educational and portfolio purposes. It does not represent actual company financial information.
+All records are **synthetic sample data** generated for this project. They do not represent a real company, employee, customer, supplier, or financial account.
 
-| Dataset | Records | Description |
+| Dataset | Records | Purpose |
 |---|---:|---|
-| Transactions | 600 | Financial transaction records |
-| Accounts | 10 | Account codes, names, and types |
-| Cost Centers | 6 | Department and region information |
-| Budgets | 720 | Monthly budget records |
+| `transactions.csv` | 600 | Transaction-level financial activity |
+| `accounts.csv` | 10 | Account codes, names, and account types |
+| `cost_centers.csv` | 6 | Department, cost-center, and region mapping |
+| `budgets.csv` | 720 | Monthly budget amounts by account and cost center |
 
-The sample data covers calendar year 2025, and monetary amounts are represented in INR.
+The sample period is calendar year 2025. Currency is INR. Transaction statuses include Posted, Pending, and Reversed.
 
-### Dataset files
+### Data files
 
 - `data/transactions.csv`
 - `data/accounts.csv`
 - `data/cost_centers.csv`
 - `data/budgets.csv`
 
-The same data is also available in `Financial_MIS_Sample_Data.xlsx` across separate worksheets.
+The same source data is provided in `Financial_MIS_Sample_Data.xlsx` across separate worksheets.
 
 ## 6. Repository Structure
 
@@ -100,7 +96,7 @@ financial-mis-reporting-system/
 │   └── Excel_Setup_Guide.md
 │
 ├── reports/
-│   └── Generated reports
+│   └── Generated report outputs
 │
 ├── Financial_MIS_Sample_Data.xlsx
 ├── mis_reporting.py
@@ -109,82 +105,60 @@ financial-mis-reporting-system/
 └── README.md
 ```
 
-The SQLite database and reports are generated locally when the Python script is executed.
+Generated database and report files are created when the Python runner is executed. They are not required to be committed to GitHub.
 
 ## 7. Financial Data Model
 
-The project contains four main data tables.
+The project uses four main data tables.
 
 ### 7.1 Transactions
 
-Stores transaction-level financial activity, including:
-
-- Transaction ID
-- Transaction date
-- Account code
-- Cost-center ID
-- Description
-- Reference number
-- Amount
-- Currency
-- Transaction status
-- Prepared by
+Contains transaction-level details such as transaction ID, date, account code, cost center, description, reference number, amount, currency, status, and preparer.
 
 ### 7.2 Accounts
 
-Contains account codes, account names, and account classifications.
-
-The sample account types are:
-
-- Revenue
-- Cost of Sales
-- Operating Expense
+Maps each account code to its account name and type. The sample account types are Revenue, Cost of Sales, and Operating Expense.
 
 ### 7.3 Cost Centers
 
-Contains cost-center identifiers, department names, and region information.
-
-This data supports departmental and regional reporting.
+Maps cost-center IDs to department and region information. This supports departmental and regional reporting.
 
 ### 7.4 Budgets
 
-Stores monthly budget amounts by account and cost center.
+Stores monthly budget amounts by account and cost center. These records can be compared with actual posted transactions for the same period and reporting dimensions.
 
-The budget data can be compared with actual posted transactions for the corresponding reporting period.
-
-### Table relationships
+### Relationships
 
 - `transactions.account_code` → `accounts.account_code`
 - `transactions.cost_center_id` → `cost_centers.cost_center_id`
 - `budgets.account_code` → `accounts.account_code`
 - `budgets.cost_center_id` → `cost_centers.cost_center_id`
 
-## 8. SQL Database and Analytics
+Monthly reporting matches transaction month with the budget month. Use consistent date, account, and cost-center definitions when expanding the project.
 
-The `sql` folder contains the database schema and financial reporting queries.
+## 8. SQL Database and Queries
 
-### `schema.sql`
+### Database schema
 
-Defines the database tables, primary keys, foreign keys, validation rules, and indexes.
+`sql/schema.sql` defines tables, primary keys, foreign keys, validation checks, and indexes for SQLite.
 
-### `analytics_queries.sql`
+### Analytics queries
 
-Contains queries for:
+`sql/analytics_queries.sql` includes examples for:
 
-1. Monthly financial actuals by account type.
-2. Revenue, cost of sales, and operating expenses.
-3. Monthly operating result.
-4. Actual-versus-budget analysis.
-5. Pending and reversed transaction summaries.
-6. Department-wise operating expense analysis.
+1. Monthly actuals by account type.
+2. Monthly revenue, cost of sales, operating expenses, and operating result.
+3. Actual-versus-budget analysis by month, department, and account.
+4. Pending and reversed transaction controls.
+5. Operating expense summary by department.
 
-The supplied SQL is designed for SQLite. Other database systems may require minor syntax adjustments.
+The SQL is SQLite-oriented. Other database platforms may require small syntax adjustments.
 
 ## 9. Power Query Automation
 
-Power Query is used to import, clean, and transform the financial datasets.
+Power Query helps import and prepare source data without manually repeating the same cleanup steps.
 
-The project includes:
+Included M scripts:
 
 - `power_query/Transactions.m`
 - `power_query/Accounts.m`
@@ -193,266 +167,211 @@ The project includes:
 The scripts demonstrate:
 
 - Importing CSV files.
-- Promoting headers.
-- Setting appropriate data types.
+- Promoting the first row to column headers.
+- Assigning data types.
 - Trimming text fields.
-- Filtering invalid records.
-- Preparing structured data for reporting.
+- Filtering invalid or negative amounts where applicable.
 
-### Configure the file paths
+### Important path setting
 
-The Power Query scripts contain a placeholder path:
+The M files contain a placeholder path:
 
-```text
-C:\YOUR_PROJECT_PATH\data\
-```
+`C:\YOUR_PROJECT_PATH\data\...`
 
-Replace `C:\YOUR_PROJECT_PATH\` with the actual path to your extracted project folder before refreshing the queries.
+Replace `C:\YOUR_PROJECT_PATH\` with the actual full folder path on your computer before refreshing the query. Alternatively, use Excel's Get Data interface to select the CSV file and adapt the transformation steps in Power Query Editor.
 
-Alternatively, import the CSV files through Excel's **Data → Get Data → From Text/CSV** menu and configure the transformations in Power Query Editor.
+Detailed steps are in `docs/Excel_Setup_Guide.md`.
 
 ## 10. Excel VBA Automation
 
-The VBA source code is available in:
+The VBA source is provided in:
 
 `vba/FinancialMISAutomation.bas`
 
-It contains three main macros.
+It contains three macros:
 
-### 10.1 RefreshAllMIS
+### `RefreshAllMIS`
 
-- Refreshes workbook data connections.
+- Refreshes workbook connections.
 - Waits for supported asynchronous queries to finish.
-- Records the last refresh timestamp.
+- Records a refresh timestamp on the MIS Summary sheet.
 - Displays a completion or error message.
 
-### 10.2 CreateMISSummarySheet
+### `ExportMISSummaryToPDF`
 
-Creates an MIS Summary worksheet if it does not exist and adds sample KPI formulas for:
+- Exports the `MIS Summary` worksheet to a PDF.
+- Saves the PDF beside the workbook.
+- Adds a timestamp to the output filename.
 
+### `CreateMISSummarySheet`
+
+- Creates the `MIS Summary` worksheet if it does not exist.
+- Adds sample KPI formulas for posted transactions, posted amount, and pending transaction count.
+
+### Macro-enabled workbook requirement
+
+The supplied sample workbook is `.xlsx`, which cannot store executable VBA macros. To use the VBA code, save a copy as `.xlsm` in desktop Excel and import `FinancialMISAutomation.bas` using the VBA editor. See the setup guide before running macros.
+
+Macros should only be enabled for files and code you trust.
+
+## 11. Excel MIS Report Design
+
+The recommended MIS Summary sheet includes:
+
+- Report title and last refresh timestamp.
 - Posted transaction count.
 - Posted transaction amount.
 - Pending transaction count.
-
-### 10.3 ExportMISSummaryToPDF
-
-Exports the MIS Summary worksheet to PDF format and saves the output alongside the workbook with a timestamped filename.
-
-### Important VBA requirement
-
-The supplied Excel workbook uses the `.xlsx` format, which does not store executable VBA macros.
-
-To use the automation:
-
-1. Open the workbook in desktop Microsoft Excel.
-2. Save a copy as `Financial_MIS_Reporting_System.xlsm`.
-3. Press `Alt + F11` to open the VBA editor.
-4. Select **File → Import File**.
-5. Select `vba/FinancialMISAutomation.bas`.
-6. Confirm that the worksheet names and column positions match the VBA code.
-7. Run `CreateMISSummarySheet` once.
-8. Configure the Power Query connections and use `RefreshAllMIS`.
-9. Run `ExportMISSummaryToPDF` to export the summary.
-
-Only enable macros from code and files you trust.
-
-## 11. Recommended MIS Dashboard
-
-The Excel MIS Summary worksheet can contain the following sections.
-
-### Key performance indicators
-
-- Posted Transaction Count
-- Posted Transaction Amount
-- Pending Transaction Count
-- Monthly Revenue
-- Cost of Sales
-- Operating Expenses
-- Operating Result
-- Actual-versus-Budget Variance
-
-### Recommended charts
-
 - Monthly revenue trend.
-- Monthly expense trend.
-- Revenue versus expenses.
-- Department-wise operating expenses.
-- Actual-versus-budget comparison.
-- Transaction status distribution.
+- Cost of sales and operating expenses.
+- Operating result.
+- Actual-versus-budget variance.
+- Department expense summary.
+- Transaction status control table.
 
-These visuals can be created using Excel charts, PivotTables, PivotCharts, and Power Query-loaded tables.
+Use PivotTables, PivotCharts, formulas, or the Data Model depending on your reporting preference.
 
 ## 12. Key Financial Metrics
 
 ### Revenue
 
-The total amount of posted transactions classified as Revenue.
+Sum of posted transactions mapped to accounts classified as Revenue.
 
 ### Cost of Sales
 
-The total amount of posted transactions classified as Cost of Sales.
+Sum of posted transactions mapped to Cost of Sales accounts.
 
 ### Operating Expenses
 
-The total amount of posted transactions classified as Operating Expense.
+Sum of posted transactions mapped to Operating Expense accounts.
 
 ### Operating Result
 
-For this demonstration project:
+For this sample project:
 
-```text
-Operating Result = Revenue - Cost of Sales - Operating Expenses
-```
+`Operating Result = Revenue - Cost of Sales - Operating Expenses`
 
 ### Budget Variance
 
-The project uses the following variance calculation:
+For the supplied example queries:
 
-```text
-Variance = Actual Amount - Budget Amount
-```
+`Variance = Actual Amount - Budget Amount`
 
-A positive variance means actual amounts exceed budget. Whether this is favorable depends on the account type: higher revenue may be favorable, while higher expenses may be unfavorable.
+A positive variance means actual amount exceeds budget; whether that is favorable depends on the account type. Higher revenue may be favorable, while higher expenses may be unfavorable.
 
-### Transaction Status
+### Transaction control
 
-Transactions are classified as:
+Pending and reversed records are reported separately for review. The sample monthly financial summary uses Posted transactions only.
 
-- `Posted`
-- `Pending`
-- `Reversed`
+**Finance note:** This is a simplified demonstration. Real MIS reporting requires approved account mappings, sign conventions, accounting periods, cut-off rules, accruals, tax treatment, reversals, currency conversion, and clear rules for favorable/unfavorable variance.
 
-The sample monthly financial summary includes posted transactions only. Pending and reversed transactions are available for separate control analysis.
+## 13. Run the Optional Python Validation and Reporting Script
 
-**Financial control note:** Real financial reporting requires approved account mappings, accounting-period rules, accruals, cut-off controls, tax treatment, reversal handling, and consistent sign conventions.
-
-## 13. Installation and Setup
+Python is included as a reproducible helper to validate the datasets, create a local SQLite database, and export sample reports. The main business workflow remains Excel VBA, SQL, and Power Query.
 
 ### Prerequisites
 
-- Python 3.10 or later for the optional Python utility.
-- Microsoft Excel desktop for VBA and Power Query.
-- Visual Studio Code or another code editor.
-- Git, if you want to manage the project through Git commands.
+- Python 3.10 or later.
+- Visual Studio Code or another Python editor.
+- Microsoft Excel desktop for VBA and Power Query functionality.
 
-### Step 1: Download or clone the repository
-
-```bash
-git clone https://github.com/Balu200512/financial-mis-reporting-system.git
-```
-
-Move into the project directory:
-
-```bash
-cd financial-mis-reporting-system
-```
-
-Alternatively, download the ZIP from GitHub and extract it.
-
-### Step 2: Create a Python virtual environment
+### Install dependencies
 
 ```bash
 python -m venv venv
 ```
 
-For Windows Command Prompt:
+Windows Command Prompt:
 
 ```bat
 venv\Scripts\activate
 ```
 
-### Step 3: Install dependencies
+Install packages:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### Step 4: Run the Python utility
+Run:
 
 ```bash
 python mis_reporting.py
 ```
 
-The script validates the datasets, creates the SQLite database, and generates summary reports and charts.
+The script validates source columns, checks transaction ID uniqueness, checks non-negative amounts and master-data references, builds `financial_mis.db`, and creates report files in `reports/`.
 
-## 14. Generated Reports
+Expected outputs include:
 
-After successfully running `mis_reporting.py`, the project creates:
+- `reports/monthly_financial_summary.csv`
+- `reports/monthly_financial_summary.md`
+- `reports/transaction_control_summary.csv`
+- `reports/monthly_financial_trend.png`
+- `financial_mis.db`
 
-```text
-financial_mis.db
+## 14. Setup Instructions for Excel
 
-reports/
-├── monthly_financial_summary.csv
-├── monthly_financial_summary.md
-├── transaction_control_summary.csv
-└── monthly_financial_trend.png
-```
+1. Extract or clone the repository.
+2. Open `Financial_MIS_Sample_Data.xlsx` in desktop Microsoft Excel.
+3. Import the CSV files through **Data → Get Data → From File → From Text/CSV**, or use the included M scripts.
+4. Update placeholder file paths in the Power Query scripts.
+5. Load queries to worksheets or the Data Model.
+6. Save a copy of the workbook as `Financial_MIS_Reporting_System.xlsm`.
+7. Import `vba/FinancialMISAutomation.bas` using `Alt + F11` → **File → Import File**.
+8. Run `CreateMISSummarySheet` once.
+9. Configure the required query connections and verify the Transactions worksheet column layout.
+10. Run `RefreshAllMIS` to refresh workbook data.
+11. Run `ExportMISSummaryToPDF` to save a PDF copy of the MIS Summary.
 
-### Report descriptions
-
-- `monthly_financial_summary.csv` – monthly revenue, cost of sales, expenses, and operating result.
-- `monthly_financial_summary.md` – readable monthly summary.
-- `transaction_control_summary.csv` – transaction counts and amounts by status.
-- `monthly_financial_trend.png` – visualization of monthly revenue and expenses.
-- `financial_mis.db` – local SQLite database containing the financial data.
-
-These are generated outputs and do not need to be created manually.
+Refer to `docs/Excel_Setup_Guide.md` for more details.
 
 ## 15. Business Questions Answered
 
-This project demonstrates how to answer the following financial reporting questions:
+This project helps demonstrate how to answer questions such as:
 
 1. What is the monthly revenue trend?
-2. What are the total cost of sales and operating expenses?
+2. What are the monthly cost of sales and operating expenses?
 3. What is the operating result for each month?
 4. Which departments record the highest operating expenses?
-5. How do actual amounts compare with budget amounts?
-6. How many transactions are pending?
-7. How many transactions have been reversed?
+5. How much actual activity is recorded against the budget?
+6. Which transactions remain pending?
+7. How many transactions were reversed?
 8. Which account types contribute to the financial result?
-9. How can monthly reporting be refreshed more consistently?
-10. How can an MIS summary be exported as a PDF?
+9. How can monthly MIS preparation be refreshed and exported more consistently?
 
 ## 16. Skills Demonstrated
 
-- Financial MIS reporting.
-- Microsoft Excel.
+- Financial MIS reporting concepts.
+- Excel worksheet and report design.
 - Excel VBA automation.
 - Power Query and M language.
-- SQL database design.
-- Financial analysis.
-- Budget-versus-actual reporting.
-- Data cleaning and validation.
-- Monthly financial reporting.
-- Excel charting and PivotTables.
-- Python and Pandas.
-- Data visualization.
-- Git and GitHub.
+- SQL schema design and reporting queries.
+- Data validation and transformation.
+- Actual-versus-budget analysis.
+- Monthly financial summaries.
+- Transaction status controls.
+- Python data processing and reporting.
+- GitHub repository organization and documentation.
 
 ## 17. Limitations
 
-- The sample data is synthetic.
-- The provided Excel workbook is not a completed macro-enabled `.xlsm` workbook.
-- VBA macros must be imported and configured in desktop Excel.
-- Power Query file paths must be updated for the local computer.
-- The SQL scripts are SQLite-oriented.
-- The generated reports are based on the supplied sample data.
-- This is a portfolio and learning project, not an audited accounting system.
+- All sample records are synthetic.
+- The included workbook is `.xlsx`; VBA requires a separate `.xlsm` copy in desktop Excel.
+- The VBA macros and Power Query scripts must be imported/configured in Excel before use.
+- Query paths must be adjusted to the local project folder.
+- The SQL schema is SQLite-compatible, and other database systems may need syntax changes.
+- This project is not an audited accounting solution or a replacement for a finance system.
 
 ## 18. Future Enhancements
 
-Possible improvements include:
-
-- Delivering a configured macro-enabled Excel workbook.
-- Connecting directly to SQL Server or PostgreSQL.
-- Adding profit-and-loss and cash-flow reports.
-- Adding balance-sheet reporting.
-- Creating automated email distribution for PDF reports.
-- Adding budget threshold alerts.
-- Adding reconciliation and month-end closing checklists.
-- Implementing audit logs and automated testing.
-- Integrating Power Pivot and advanced financial measures.
+- Add a finished `.xlsm` workbook with configured buttons and queries.
+- Connect to a live SQL Server or PostgreSQL database.
+- Add Power Pivot measures and a dimensional model.
+- Add cash flow, balance sheet, and profit-and-loss reporting.
+- Add automated email distribution of PDF reports.
+- Add variance thresholds and exception alerts.
+- Add month-end close checklists and reconciliation controls.
+- Add role-based access, audit logs, and automated testing.
 
 ## 19. Author
 
@@ -462,7 +381,7 @@ GitHub: [Balu200512](https://github.com/Balu200512)
 
 ## 20. License
 
-This project is provided for educational, portfolio, and demonstration purposes. Add an open-source license file if you intend to distribute the project under specific reuse terms.
+This project is provided for educational, portfolio, and demonstration purposes. Add a formal open-source license file if you intend to distribute the project under specific reuse terms.
 
 ---
 

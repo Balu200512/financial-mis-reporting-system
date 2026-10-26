@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+financial_mis.db
+reports/*.png
+reports/*.csv
+reports/*.md
+~$*.xlsx
+*.xlsm

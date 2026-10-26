@@ -1,0 +1,7 @@
+cost_center_id,cost_center_name,department,region
+CC001,Finance,Finance,South
+CC002,Sales,Sales,East
+CC003,Marketing,Marketing,West
+CC004,Operations,Operations,North
+CC005,IT,IT,South
+CC006,Human Resources,Human Resources,East

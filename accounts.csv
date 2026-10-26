@@ -1,0 +1,11 @@
+account_code,account_name,account_type
+REV001,Product Sales,Revenue
+REV002,Service Revenue,Revenue
+COGS01,Cost of Goods Sold,Cost of Sales
+EXP001,Salaries and Wages,Operating Expense
+EXP002,Rent and Utilities,Operating Expense
+EXP003,Marketing Expense,Operating Expense
+EXP004,Software and Subscriptions,Operating Expense
+EXP005,Travel and Meals,Operating Expense
+EXP006,Office Supplies,Operating Expense
+EXP007,Professional Fees,Operating Expense
